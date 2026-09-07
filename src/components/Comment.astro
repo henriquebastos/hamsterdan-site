@@ -1,0 +1,16 @@
+---
+// A comment from Dan in a PR thread.
+interface Props {
+	pr: string;
+}
+const { pr } = Astro.props;
+const avatar = `${import.meta.env.BASE_URL}hamster-dan-avatar.png`;
+---
+
+<div class="flex items-start gap-3.5 border border-rule bg-white px-[18px] py-4">
+	<img src={avatar} alt="" width="36" height="36" class="size-9 shrink-0 rounded-full object-cover" />
+	<div class="flex flex-col gap-1">
+		<div class="font-mono text-xs text-muted"><span class="font-bold text-ink">hamster-dan</span> · {pr}</div>
+		<div class="text-[15px] leading-relaxed text-ink"><slot /></div>
+	</div>
+</div>

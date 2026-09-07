@@ -1,0 +1,18 @@
+---
+interface Props {
+	size?: "nav" | "footer";
+}
+const { size = "nav" } = Astro.props;
+---
+
+<a
+	href={import.meta.env.BASE_URL}
+	class:list={[
+		"inline-block -rotate-2 font-logo text-ink no-underline hover:text-ink",
+		size === "nav" ? "text-xl" : "text-[15px]",
+	]}
+>
+	HAMSTER<span class:list={["inline-block bg-red text-paper", size === "nav" ? "px-1.5" : "px-[5px]"]}
+		>DAN</span
+	>
+</a>

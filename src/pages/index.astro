@@ -1,0 +1,160 @@
+---
+import Comment from "@/components/Comment.astro";
+import Eyebrow from "@/components/Eyebrow.astro";
+import Logo from "@/components/Logo.astro";
+import Base from "@/layouts/Base.astro";
+import { siteConfig } from "@/site-config";
+
+const avatar = `${import.meta.env.BASE_URL}hamster-dan-avatar.png`;
+
+const problems = [
+	["A flaky test.", "Red CI, nothing wrong. Someone has to notice and click rerun."],
+	["A silent reviewer.", "Requested Monday. It's Thursday. Nobody wants to be the one who pings."],
+	["An unclear status.", "Forty comments deep. Is it ready? Scroll and find out."],
+];
+
+const steps = [
+	["WATCH", "Reads the diff.", "Every pull request, the moment it opens. Nothing ships without him reading it first."],
+	["FIX", "Reruns and patches.", "Flaky test? Rerun before you see red. Real failure? He reproduces it first (no repro, no patch), then fixes and validates."],
+	["NAG", "Chases at day three.", "Reviewer gone quiet? After three days Dan mentions them, cheerfully, and offers to find a stand-in. The awkward ping is his job now."],
+	["GATE", "Names the one blocker.", "One pinned comment tracks every gate and the single thing still in the way, then announces the moment it's truly ready. He never merges."],
+];
+
+const gates = [
+	["actions", "green · flaky ×1"],
+	["agent review", "clear"],
+	["conversations", "resolved"],
+	["base", "current"],
+];
+
+const asks = [
+	["what's this waiting on?", "One thing: a rollback for the migration. Everything else is green."],
+	["snooze this till Monday.", "Snoozed till Monday 9:00. I respect a snooze. I do not forget a snooze."],
+	["hand this review to Ana.", "Done. Ana's requested, Kika's off the hook. Anything risky I'll stage and ask you first."],
+];
+
+const btn = "font-mono text-sm font-bold no-underline transition-colors";
+---
+
+<Base>
+	<nav class="mx-auto flex max-w-site items-center justify-between border-b border-rule px-12 py-5">
+		<Logo />
+		<div class="flex items-center gap-7">
+			<a href="#how" class="font-mono text-[13px] text-ink no-underline hover:text-red">HOW IT WORKS</a>
+			<a href="#voice" class="font-mono text-[13px] text-ink no-underline hover:text-red">DAN IN ACTION</a>
+			<a href={siteConfig.source} class:list={[btn, "bg-ink px-[18px] py-2.5 text-[13px] text-paper hover:bg-red hover:text-paper"]}>GET THE SOURCE</a>
+		</div>
+	</nav>
+
+	<header class="mx-auto grid max-w-site grid-cols-1 items-center gap-14 border-b border-rule px-12 pb-[72px] pt-[88px] md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+		<div class="flex flex-col gap-7">
+			<Eyebrow>PR READINESS, HANDLED</Eyebrow>
+			<h1 class="max-w-[620px] font-display text-[56px] leading-none tracking-[-2px] text-ink md:text-[72px]">The wheel never stops.</h1>
+			<p class="max-w-[500px] text-[19px] leading-[1.55] text-muted">{siteConfig.description} You keep the merge button.</p>
+			<div class="flex flex-wrap items-center gap-3.5">
+				<a href={siteConfig.source} class:list={[btn, "bg-red px-6 py-3.5 text-paper hover:bg-ink hover:text-paper"]}>GET THE SOURCE</a>
+				<span class="font-mono text-[13px] text-muted">open source · self-hosted · yours to run</span>
+			</div>
+		</div>
+		<div class="flex items-center justify-center">
+			<img src={avatar} alt="Hamster Dan, winking, in his martial-arts headband" width="380" height="380" class="aspect-square w-[380px] max-w-full rounded-full border-[3px] border-ink object-cover" />
+		</div>
+	</header>
+
+	<section class="mx-auto flex max-w-site flex-col gap-9 px-12 pt-[88px]">
+		<div class="flex flex-col gap-2.5">
+			<Eyebrow>THE PROBLEM</Eyebrow>
+			<h2 class="font-display text-[40px] leading-[1.1] tracking-[-1px] text-ink">The code is done. The pull request isn't.</h2>
+		</div>
+		<div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
+			{problems.map(([title, body], i) => (
+				<div class="flex flex-col gap-2.5 border-t-[3px] border-ink py-5">
+					<div class="font-mono text-[13px] font-bold text-red">{String(i + 1).padStart(2, "0")}</div>
+					<h3 class="font-display text-[22px] text-ink">{title}</h3>
+					<p class="text-[15px] leading-relaxed text-muted">{body}</p>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<section id="how" class="mt-[88px] bg-night">
+		<div class="mx-auto flex max-w-site flex-col gap-10 px-12 py-20">
+			<div class="flex flex-col gap-2.5">
+				<Eyebrow>HOW IT WORKS</Eyebrow>
+				<h2 class="font-display text-[40px] tracking-[-1px] text-paper">One hamster. Every PR.</h2>
+			</div>
+			<div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5">
+				{steps.map(([tag, title, body], i) => (
+					<div class="flex flex-col gap-3 border border-night-rule p-7">
+						<div class="font-mono text-xs tracking-[3px] text-red">{String(i + 1).padStart(2, "0")} · {tag}</div>
+						<h3 class="font-display text-[22px] text-paper">{title}</h3>
+						<p class="text-[15px] leading-relaxed text-night-muted">{body}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto grid max-w-site grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-14 px-12 pt-[88px]">
+		<div class="flex flex-col gap-4">
+			<Eyebrow>THE DASHBOARD</Eyebrow>
+			<h2 class="font-display text-[40px] leading-[1.1] tracking-[-1px] text-ink">One comment. Always current.</h2>
+			<p class="text-base leading-relaxed text-muted">Dan edits a single readiness dashboard on every PR: every gate, and the one thing still blocking. No scrolling through forty stale bot comments.</p>
+			<p class="text-base leading-relaxed text-muted">Advisory only. He judges; he never merges.</p>
+		</div>
+		<div class="flex flex-col gap-4 bg-ink px-[30px] py-7">
+			<div class="flex flex-wrap items-baseline justify-between gap-3">
+				<Eyebrow class="text-xs">READINESS · #491</Eyebrow>
+				<div class="font-mono text-[11px] text-night-muted">head 9f3c2e1 · updated 2m ago</div>
+			</div>
+			<div class="flex flex-col border-t border-night-rule font-mono text-[13px] text-paper">
+				{gates.map(([k, v]) => (
+					<div class="flex justify-between border-b border-night-rule py-[11px]"><span>{k}</span><span>{v}</span></div>
+				))}
+				<div class="flex justify-between border-b border-night-rule py-[11px]"><span>human review</span><span class="font-bold text-red">waiting</span></div>
+			</div>
+			<div class="flex items-center gap-2.5">
+				<span class="inline-block size-2.5 shrink-0 rounded-full bg-red"></span>
+				<span class="font-display text-[17px] text-paper">One thing blocking: your review, <span class="text-red">@kika</span>.</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto flex max-w-site flex-col gap-8 px-12 pt-[88px]">
+		<div class="flex flex-col gap-2.5">
+			<Eyebrow>TALK TO DAN</Eyebrow>
+			<h2 class="font-display text-[40px] tracking-[-1px] text-ink">Just talk to him.</h2>
+			<p class="max-w-[640px] text-base leading-relaxed text-muted">No commands, no syntax. Mention <span class="font-mono text-red">{siteConfig.handle}</span> in a comment and say what you want, like you would to a colleague. A small, furry, extremely available colleague.</p>
+		</div>
+		<div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-5">
+			{asks.map(([ask, reply]) => (
+				<div class="flex flex-col gap-3 border border-rule bg-white p-6">
+					<div class="truncate text-[15px] leading-relaxed text-ink"><span class="font-mono text-red">{siteConfig.handle}</span> {ask}</div>
+					<div class="h-px bg-rule"></div>
+					<p class="text-[15px] leading-relaxed text-muted">{reply}</p>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<section id="voice" class="mx-auto grid max-w-site grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-14 px-12 py-[88px]">
+		<div class="flex flex-col gap-4">
+			<Eyebrow>DAN IN ACTION</Eyebrow>
+			<h2 class="font-display text-[40px] leading-[1.1] tracking-[-1px] text-ink">He teases the PR. Never the person.</h2>
+			<p class="text-base leading-relaxed text-muted">Straight from the demo repo. Dan's beef is with broken tests and slow calendars, never with you.</p>
+		</div>
+		<div class="flex flex-col gap-3.5">
+			<Comment pr="#482">Rerun passed. That test is flaky, not your code. I've noted it in my little book.</Comment>
+			<Comment pr="#491"><span class="font-mono text-red">@kika</span> Day 3. This PR and I have gotten to know each other quite well. Want me to find another reviewer?</Comment>
+			<Comment pr="#487">This unwrap panics on an empty list. I checked twice. I always check twice.</Comment>
+			<Comment pr="#495">Clean. Ship it. I'll be on my wheel if you need me.</Comment>
+		</div>
+	</section>
+
+	<footer class="border-t border-rule">
+		<div class="mx-auto flex max-w-site flex-wrap items-center justify-between gap-4 px-12 py-8">
+			<Logo size="footer" />
+			<p class="max-w-[620px] font-mono text-xs leading-[1.7] text-muted">Built on <a href={siteConfig.petrus}>Petrus</a>. Dan is a hamster. He does not accept liability, only pull requests.</p>
+		</div>
+	</footer>
+</Base>

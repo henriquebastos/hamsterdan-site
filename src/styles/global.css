@@ -1,0 +1,20 @@
+@import "@fontsource/archivo-black";
+@import "@fontsource/rubik-mono-one";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	@apply bg-paper font-sans text-ink antialiased;
+	text-wrap: pretty;
+}
+
+a {
+	@apply text-red;
+}
+a:hover {
+	@apply text-red-dark;
+}
